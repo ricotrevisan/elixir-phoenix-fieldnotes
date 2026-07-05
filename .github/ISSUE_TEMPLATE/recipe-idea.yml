@@ -1,0 +1,22 @@
+name: Recipe idea
+description: Capture a practical fieldnote to extract later
+title: "Recipe: "
+labels: [recipe-idea]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What broke, hurt, or kept recurring?
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source or reference project
+      description: Where should this be mined from?
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Rough bullets, links, commands, or snippets.

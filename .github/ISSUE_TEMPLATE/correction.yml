@@ -1,0 +1,24 @@
+name: Correction
+description: Report an error, outdated snippet, or missing caveat
+title: "Correction: "
+labels: [correction]
+body:
+  - type: input
+    id: recipe
+    attributes:
+      label: Recipe
+      description: Which recipe needs correction?
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Correction
+      description: What should change?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Version numbers, failing command output, docs link, or source link.

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+recipe_dir="recipes/phoenix/worktree-postgres-db-names"
+
+elixir \
+  -r "$recipe_dir/snippets/database_name.exs" \
+  -e '
+ExUnit.start()
+Code.require_file("recipes/phoenix/worktree-postgres-db-names/snippets/database_name_test.exs")
+'
+
+elixir \
+  -r "$recipe_dir/snippets/database_name.exs" \
+  -e '
+name = MyApp.Config.DatabaseName.from_worktree_basename(
+  "my_app.feature-def-1862-link-event-to-existing-meeting",
+  "my_app",
+  "dev"
+)
+
+if byte_size(name) > 63 do
+  raise "database name too long: #{name}"
+end
+
+IO.puts("Generated safe database name: #{name}")
+'
