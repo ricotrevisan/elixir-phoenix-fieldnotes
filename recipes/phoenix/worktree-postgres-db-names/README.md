@@ -6,7 +6,11 @@
 
 ## Problem
 
-A common Phoenix local-development pattern is to derive the dev/test database name from the current worktree or branch name:
+The root problem shows up when local development gets more parallel.
+
+At first, one shared `my_app_dev` database is usually enough. Then you start letting agents or teammates do more coding independently, often with multiple sessions running in different git worktrees at the same time. As soon as two branches have different migrations, a shared dev/test database becomes a source of conflicts: one worktree migrates forward, another expects an older shape, and both sessions become less isolated than the filesystem suggests.
+
+A natural next step is complete local isolation: derive each worktree's dev/test database name from the current worktree or branch name:
 
 ```elixir
 worktree_name =
@@ -17,7 +21,7 @@ worktree_name =
 database: "my_app_#{worktree_name}_dev"
 ```
 
-That works until branch/worktree names get long, for example:
+That solves the migration-conflict problem until descriptive branch/worktree names get long, for example:
 
 ```text
 my_app.feature-def-1862-link-event-to-existing-meeting
@@ -25,7 +29,7 @@ my_app.feature-def-1862-link-event-to-existing-meeting
 
 PostgreSQL identifiers are limited to 63 bytes. If the generated database name is longer than that, Postgres truncates the identifier during creation, while your app still tries to connect to the full name.
 
-The failure can look confusing:
+The resulting failure can look like Postgres or Ecto is confused:
 
 ```text
 The database for MyApp.Repo has already been created
@@ -132,6 +136,8 @@ Adapt [`snippets/database_name_test.exs`](snippets/database_name_test.exs) into 
 
 If your test reads config files with `Config.Reader`, remember that config files use the current working directory, so a regression test may need to temporarily `File.cd!/2` into a fake long worktree directory.
 
+The repository-level `scripts/check-snippets` command exercises the standalone snippet files in this recipe. It does not execute the embedded `config/dev.exs` and `config/test.exs` examples, so keep those examples in sync when adapting the snippet.
+
 ## Verification
 
 In a Phoenix project:
@@ -164,6 +170,7 @@ Expected behavior:
 
 ## Tradeoffs
 
+- The default helper uses `File.cwd!()`, so it assumes Mix commands run from the project/worktree root. If you run commands from unusual directories, umbrellas, editor tasks, or wrappers, pass `cwd:` explicitly or adapt the helper.
 - Renaming the worktree directory changes the default database name, because the hash is based on the directory basename.
 - Old local databases are not renamed automatically. Drop them manually when they are no longer useful.
 - The snippet assumes ASCII-safe database identifiers after slugification.

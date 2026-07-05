@@ -16,7 +16,8 @@ Good entries are practical notes from real Phoenix, Ash, Elixir, or Pi work:
 
 Use one of these statuses near the top of each recipe:
 
-- `draft` — idea captured, not fully extracted.
+- `planned` — placeholder for an idea that has not been extracted yet.
+- `draft` — idea captured or partially extracted, not fully proven as a reusable recipe.
 - `proven` — used successfully in a real project.
 - `needs-refresh` — useful historically, but likely needs version updates.
 
@@ -28,6 +29,10 @@ Use one of these statuses near the top of each recipe:
 - [ ] Include verification commands.
 - [ ] Document tradeoffs and when not to use it.
 - [ ] Mark the recipe status honestly.
+
+## Proposing changes
+
+Open an issue for rough recipe ideas or unclear corrections. Open a pull request for small fixes, extracted recipes, and snippet improvements. For corrections, include the relevant framework/library versions and the command output or docs link that motivated the change.
 
 ## Local checks
 

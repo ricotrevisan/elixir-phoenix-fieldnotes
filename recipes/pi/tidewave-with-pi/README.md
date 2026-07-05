@@ -6,7 +6,9 @@
 
 ## Intent
 
-Extract the workflow from `pii-acp` into a reusable recipe for using Tidewave effectively from a Pi-assisted development loop.
+Extract the workflow from a private reference project into a reusable recipe for using Tidewave effectively from a Pi-assisted development loop.
+
+Here, Pi means the coding-agent harness used to inspect and modify projects. This is intentionally only a placeholder until the private/project-specific pieces have been removed and the public recipe can stand on its own.
 
 ## Notes to mine later
 

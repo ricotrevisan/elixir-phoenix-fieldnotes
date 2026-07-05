@@ -1,6 +1,7 @@
 # Recipe title
 
 **Status:** draft  
+<!-- Use one of: planned, draft, proven, needs-refresh. -->
 **Stack:** Phoenix, Elixir  
 **Last verified:** YYYY-MM-DD
 
